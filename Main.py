@@ -1,4 +1,4 @@
-#This is a bot discord create by Dralexgon and Mysthieu.
+#This is a bot discord created by Dralexgon and Mysthieu.
 #The purpose of this bot is to roleplay easier with your friends.
 
 import discord
