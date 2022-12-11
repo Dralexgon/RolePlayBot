@@ -15,5 +15,3 @@ class GameMaster:
             if i == region:
                 reward = GameMaster.regionsToRewards[region][randint(0,len(GameMaster.regionsToRewards[region])-1)]
         return reward
-        
-
