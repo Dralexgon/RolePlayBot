@@ -3,14 +3,17 @@
 
 from random import*
 
-class MaitreDuJeu:
-    dictionnaryZonesRewards = dict({ #Dictionnary of all the rewards we can get in a specific region
-        "TerreDuFeu" : ["cactus","arbre mort","sable rare","scorpion"]
-    })
-    async def exploration(zone): #Give a random reward to soemone that explore a region.
-        for i in dict.keys():
-            if i == zone:
-                reward = dict[zone][randint(0,len(dict[zone])-1)]
+class GameMaster:
+
+    regionsToRewards = { #Dictionnary of all the rewards we can get in a specific region
+        "TerreDuFeu" : ("cactus","arbre mort","sable rare","scorpion")
+    }
+
+    @staticmethod 
+    async def exploration(region): #Give a random reward to soemone that explore a region.
+        for i in GameMaster.regionsToRewards.keys():
+            if i == region:
+                reward = GameMaster.regionsToRewards[region][randint(0,len(GameMaster.regionsToRewards[region])-1)]
         return reward
         
 
