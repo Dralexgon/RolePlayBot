@@ -1,9 +1,11 @@
 class Character:
 
-    def __init__(self, surname: str, firstname: str, lastname: str, race: str, gender: int, age: int, height: int, weight: int, combatClass: str, magicClass: str):
+    def __init__(self, surname: str, gender: int, race: str, combatClass: str, magicClass: str, firstname: str = "default", lastname: str = "default", age: int = 25, height: int = 175, weight: int = 70):
         self.surname = surname
         self.firstname = firstname
         self.lastname = lastname
+        if firstname == "default": self.firstname = surname
+        if lastname == "default": self.lastname = surname
         self.race = race
         self.gender = gender
         self.age = age
