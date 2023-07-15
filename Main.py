@@ -21,16 +21,14 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send('pong')
 
-@bot.command(alias=["createcharacter"])
+@bot.command(alias=["createcharacter","newcharacter","newchar","createchar"])
 async def create_character(ctx: commands.Context):
-    """
     #the user will respond by typing message in the same channel or by reacting to the message
     await ctx.send(Translate.get("QUESTION_NAME"))
     name = (await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)).content
 
     await ctx.send(Translate.get("QUESTION_GENRE"))
-    gender = int((await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)).content)
-    """
+    gender = (await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)).content
 
     question = await ctx.send(Translate.get("QUESTION_RACE"))
     #for emojiName in ["Human", "DemonBorn", "Sylphe", "Angel", "Sirne"]:
@@ -41,7 +39,7 @@ async def create_character(ctx: commands.Context):
                         get_custom_emoji("Sirne")]:
         await question.add_reaction(emojiName)
     reaction, user = await bot.wait_for('reaction_add', check=lambda reaction, user: user == ctx.author and reaction.message == question)
-    combatClass = reaction.emoji.name
+    race = reaction.emoji.name
     
 
     question = await ctx.send(Translate.get("QUESTION_COMBAT_CLASS"))
@@ -54,10 +52,20 @@ async def create_character(ctx: commands.Context):
     for emojiName in ["🔥", "💧", "🪨", "💨"]:
         await question.add_reaction(emojiName)
     reaction, user = await bot.wait_for('reaction_add', check=lambda reaction, user: user == ctx.author and reaction.message == question)
-    magicClass = reaction.emoji.name
+    magicClass = reaction.emoji
 
-    GameMaster.addCharacter(Character(ctx.author.id, name, gender, race, combatClass, magicClass))
+    GameMaster.add_character(Character(ctx.author.id, name, gender, race, combatClass, magicClass))
 
+    await ctx.send(Translate.get("CHARACTER_CREATED"))
+    await ctx.send(GameMaster.get_character_by_owner_id(ctx.author.id).get_profile_card())
+
+@bot.command(alias=["profile", "profilecard", "characterprofile", "showcharacter", "showcharacterprofile"])
+async def show_profile_card(ctx: commands.Context):
+    character = GameMaster.get_character_by_owner_id(ctx.author.id)
+    if character == None:
+        await ctx.send("You do not have a character yet.")
+    else:
+        await ctx.send(character.get_profile_card())
 
 #note for me, to wait for an answer, use await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)
 

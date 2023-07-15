@@ -2,11 +2,22 @@
 #It's the center of the programm with only gameplay aspects.
 
 from random import randint
+from Character import Character
 
 class GameMaster:
 
-    characters = []
+    characters = [Character(645005137714348041, "Predatoria", "Femmelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
+    @staticmethod
+    def add_character(character):
+        GameMaster.characters.append(character)
+
+    @staticmethod
+    def get_character_by_owner_id(id):
+        for character in GameMaster.characters:
+            if character.ownerId == id:
+                return character
+        return None
 
     #TODO finish that later (and understand what it is)
     
