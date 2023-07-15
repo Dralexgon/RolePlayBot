@@ -35,27 +35,28 @@ class Character:
         self.spells = []
     
     def get_profile_card(self) -> str:
-        card = "#Character permanent profile:\n\n"
+        card = "## Character profile card :\n"
+        card += "### Character permanent information (lore) :\n\n"
         card += "- Name: " + self.surname + "\n"
         card += "- Race: " + self.race + "\n"
         card += "- Gender: " + self.gender + "\n"
         card += "- Age: " + str(self.age) + "\n"
-        card += "- Height: " + str(self.height) + "\n"
-        card += "- Weight: " + str(self.weight) + "\n"
+        card += "- Height: " + str(self.height // 100) + "m" + str(self.height % 100) + "\n"
+        card += "- Weight: " + str(self.weight) + "kg" + "\n"
         card += "- Combat Class: " + self.combatClass + "\n"
         card += "- Magic Class: " + self.magicClass + "\n"
 
-        card += "\n##Character ??????:\n\n"
+        card += "### Character ?????? :\n\n"
 
         card += "- Level: " + str(self.level) + "\n"
         card += "- XP: " + str(self.xp) + "\n"
 
-        card += "\n##Character ??????:\n\n"
+        card += "### Character ?????? :\n\n"
 
         card += "- Health: " + str(self.health) + "/" + str(self.maxHealth) + "\n"
         card += "- Mana: " + str(self.mana) + "/" + str(self.maxMana) + "\n"
 
-        card += "\n##Character statistics:\n\n"
+        card += "### Character statistics :\n\n"
 
         card += "- Stamina: " + str(self.stamina) + "\n"
         card += "- Strength: " + str(self.strength) + "\n"

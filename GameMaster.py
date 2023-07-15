@@ -2,11 +2,34 @@
 #It's the center of the programm with only gameplay aspects.
 
 from random import randint
+
 from Character import Character
+from Map import Map
 
 class GameMaster:
 
-    characters = [Character(645005137714348041, "Predatoria", "Femmelle", "DemonBorn", "Assassin_furtif", "🔥")]
+    characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
+
+    maps = [
+        Map("Arena", "test", [
+                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"],
+                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
+                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
+                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
+                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
+                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
+                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"]
+                ]),
+        Map("Arena2", "test", [
+                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"],
+                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
+                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
+                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
+                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
+                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
+                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"]
+                ]),
+    ]
 
     @staticmethod
     def add_character(character):
@@ -18,6 +41,14 @@ class GameMaster:
             if character.ownerId == id:
                 return character
         return None
+
+    @staticmethod
+    def get_map(mapName):
+        for map in GameMaster.maps:
+            if map.name == mapName:
+                return map
+        return None
+
 
     #TODO finish that later (and understand what it is)
     

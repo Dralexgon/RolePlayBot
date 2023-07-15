@@ -67,6 +67,16 @@ async def show_profile_card(ctx: commands.Context):
     else:
         await ctx.send(character.get_profile_card())
 
+@bot.command(alias=["startcombat", "startfight", "fight", "combat"])
+async def start_combat(ctx: commands.Context, mapName: str):
+    map = GameMaster.get_map(mapName)
+    message: discord.Message = await ctx.send(map.get_image())
+
+    #for player in characterNames:
+
+    #message.edit(content=map.get_image())
+
+
 #note for me, to wait for an answer, use await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)
 
 #note, if you want to run this code, you need to create a file called token.txt one directory before the code and put your token in it.
