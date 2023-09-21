@@ -1,33 +1,20 @@
 from random import randint
 
 from Translate import Translate
+from Item import Item
 
 class Region:
 
-    regions = [
-        Region(
-            Translate.get("country.fire"), [
-                Item.get_by_name("cactus"),
-            ]),
-        Region(
-            Translate.get("country.water"), [
-
-            ]),
-        Region(
-            Translate.get("country.earth"), [
-
-            ]),
-        Region(
-            Translate.get("country.air"), [
-
-            ]),
-    ]
-
-    default = regions[0]
-
-    def __init__(self, name: str, rewards: list(item)):
+    def __init__(self, name: str, rewards: list[Item]):
         self.name = name
         self.rewards = rewards
-    
+
+    @staticmethod
+    def get_by_name(name: str):
+        for region in Region.regions:
+            if region.name == name or Translate.get(region.name):
+                return region
+        return None
+
     def get_random_reward(self):
         return self.rewards[randint(0, len(self.rewards) - 1)]

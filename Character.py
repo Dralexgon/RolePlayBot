@@ -1,4 +1,5 @@
 from Region import Region
+from Translate import Translate
 
 class Character:
 
@@ -59,7 +60,7 @@ class Character:
         self.spells = []
 
         #temporary information
-        self.region = Region.default
+        self.region = Region(Translate.get("country.starting"), [])
         self.health = 100
         self.mana = 100
         self.maxHealth = 100
@@ -77,7 +78,7 @@ class Character:
         card += "- Weight: " + str(self.weight) + "kg" + "\n"
         card += "- Combat Class: " + self.combatClass + "\n"
         card += "- Magic Class: " + self.magicClass + "\n"
-        card += "- History: " + self.history
+        card += "- History: " + self.history + "\n"
 
         card += "## Not permanent information :\n\n"
 
@@ -99,14 +100,14 @@ class Character:
 
         card += "### Storage :\n\n"
 
-        card += "Inventory :" + self.inventory + "\n"
-        card += "Equipped :" + self.inventory + "\n"
-        card += "Gold :" + self.gold + "\n"
+        card += "Inventory: " + str(self.inventory) + "\n"
+        card += "Equipped: " + str(self.equipped) + "\n"
+        card += "Gold: " + str(self.gold) + "\n"
 
         card += "### Action :\n\n"
 
-        card += "Abilities :" + self.abilities + "\n"
-        card += "Spells :" + self.spells + "\n"
+        card += "Abilities: " + str(self.abilities) + "\n"
+        card += "Spells: " + str(self.spells) + "\n"
 
         card += "### Fighting information :\n\n"
 

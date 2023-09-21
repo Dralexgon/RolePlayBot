@@ -2,20 +2,48 @@
 #Here, there is no direct interaction with discord.
 
 from Character import Character
-from Map import Map
+from Region import Region
+from Item import Item
+from Translate import Translate
+#from Map import Map
 
 class GameManager:
 
-    #will be empty, it's just for testing purpose
     characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
-    regions = { #Dictionnary of all the rewards we can get in a specific region
-        "TerreDuFeu" : ("cactus","arbre mort","sable rare","scorpion")
-    }
+    def __init__(self):
+        #will be empty, it's just for testing purpose
+        self.items = [
+            Item("cactus")
+        ]
+        self.regions = [
+            Region(
+                Translate.get("country.fire"), [
+                    self.items[0],#cactus
+                ]),
+            Region(
+                Translate.get("country.water"), [
 
+                ]),
+            Region(
+                Translate.get("country.earth"), [
+
+                ]),
+            Region(
+                Translate.get("country.air"), [
+
+                ]),
+        ]
+
+    def get_item_by_name(self, name: str):
+        for item in self.items:
+            if item.name == name:
+                return item
+        return None
+    
     @staticmethod
     def add_character(character):
-        GameManager.characters.append(character)
+        characters.append(character)
 
     @staticmethod
     def get_character_by_owner_id(id):

@@ -6,9 +6,12 @@ from discord.ext import commands
 from GameManager import GameManager
 from Character import Character
 from Translate import Translate
+from Item import Item
+from Region import Region
 
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!', help_command=None, intents=discord.Intents.all())
+GameManager = GameManager()
 
 def get_custom_emoji(name):
     return discord.utils.get(bot.emojis, name=name)
@@ -28,7 +31,7 @@ async def ping(ctx):
 
 
 
-@client.command(
+@bot.command(
     name="help",
     help="Shows this message.")
 async def help(ctx):
@@ -37,7 +40,7 @@ async def help(ctx):
         colour = discord.Colour.blue()
     )
     commandListinversed = []
-    for command in client.commands:
+    for command in bot.commands:
         commandListinversed.append(command)
     for command in commandListinversed:
         embed.add_field(name=command.name, value=command.help, inline=False)
@@ -47,8 +50,8 @@ async def help(ctx):
 
 @bot.command(
     name="create_character",
-    help="Start a conversation to create your character tep by step",
-    alias=["createcharacter","newcharacter","newchar","createchar"])
+    help="Start a conversation to create your character step by step",
+    aliases=["createcharacter","newcharacter","newchar","createchar"])
 async def create_character(ctx: commands.Context):
     #the user will respond by typing message in the same channel or by reacting to the message
 
@@ -60,7 +63,7 @@ async def create_character(ctx: commands.Context):
         name = (await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)).content
         exist = False
         for character in GameManager.characters:
-            if character.name == name:
+            if character.surname == name:
                 exist = True
                 await ctx.send(Translate.get("character_creation.already_exist"))
                 break
@@ -106,27 +109,46 @@ async def create_character(ctx: commands.Context):
 @bot.command(
     name="show_profile_card",
     help="Shows the profile card of your character",
-    alias=["profile", "profilecard", "characterprofile", "showcharacter", "showcharacterprofile"])
+    aliases=["profile", "card", "character", "show_profile", "show_card"])
 async def show_profile_card(ctx: commands.Context):
     character = GameManager.get_character_by_owner_id(ctx.author.id)
     if character == None:
         await ctx.send("You don't have a character yet.")
-    else:
-        await ctx.send(character.get_profile_card())
+        return
+    
+    await ctx.send(character.get_profile_card())
 
 
 
 @bot.command(
     name="exploration",
     help="Your character explore arround and gain rewards specific of your current region.",
-    alias=["explo"])
+    aliases=["explo"])
 async def exploration(ctx: commands.Context):
     character = GameManager.get_character_by_owner_id(ctx.author.id)
     if character == None:
         await ctx.send("You don't have a character yet.")
-    else:
-        await ctx.send(character.get_profile_card())
+        return
+    
+    item: Item = character.region.get_random_reward()
+    character.inventory.append(item)
+    await ctx.send(Translate.get("item.receive" + "1x " + Translate.get(item.name) + " !")) 
 
+
+@bot.command(
+    name="move",
+    help="Your character move to another region.",
+    alias=["move"])
+async def move(ctx: commands.Context, *args):
+    user: discord.Member = ctx.author
+    character = GameManager.get_character_by_owner_id(user.id)
+    if character == None:
+        await ctx.send("You don't have a character yet.")
+        return
+
+    await user.remove_roles(discord.utils.get(user.guild.roles, name=character.region.name))
+    character.region = Region.get_by_name(args[1])
+    await user.add_roles(discord.utils.get(user.guild.roles, name=Translate.get(character.region.name)))
 
 #note, if you want to run this code, you need to create a file called token.txt one directory before the code and put your token in it.
 token = open('../token.txt', 'r').readlines()[0]

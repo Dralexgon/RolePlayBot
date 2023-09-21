@@ -24,6 +24,7 @@ class Translate:
             "unknow_history": ("History unknow", "Histoire inconnue"),
         },
         "item": {
+            "receive": ("You received : ", "Tu as reçu : "),
             "cactus": ("Cactus", "Cactus")
         },
         "error": {
@@ -33,10 +34,14 @@ class Translate:
 
     @staticmethod
     def get(text):
-        result = Translate.constantToLanguage
-        for word in text.split("."):
-            result = result[word]
-        return result[Translate.currentLanguage]
+        try:
+            result = Translate.constantToLanguage
+            for word in text.split("."):
+                result = result[word]
+            result = result[Translate.currentLanguage]
+            return result
+        except:
+            return None
 
     @staticmethod
     def setLanguage(language):
