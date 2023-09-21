@@ -1,40 +1,17 @@
-#This the part of the RPB, where there isn't any direct interaction with discord. 
-#It's the center of the programm with only gameplay aspects.
-
-from random import randint
+#It's the center of the program with only gameplay aspects.
+#Here, there is no direct interaction with discord.
 
 from Character import Character
 from Map import Map
 
 class GameManager:
 
-    games = []
-
     #will be empty, it's just for testing purpose
     characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
-    """
-    maps = [
-        Map("Arena", "test", [
-                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"],
-                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
-                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
-                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
-                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
-                    ["🟩","⬛","⬛","⬛","⬛","⬛","⬛","⬛","⬛","🟩"],
-                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"]
-                ]),
-        Map("Arena2", "test", [
-                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"],
-                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
-                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
-                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
-                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
-                    ["🟩"," "," "," "," "," "," "," "," ","🟩"],
-                    ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"]
-                ]),
-    ]
-    """
+    regions = { #Dictionnary of all the rewards we can get in a specific region
+        "TerreDuFeu" : ("cactus","arbre mort","sable rare","scorpion")
+    }
 
     @staticmethod
     def add_character(character):
@@ -46,19 +23,8 @@ class GameManager:
             if character.ownerId == id:
                 return character
         return None
-
-    """
-    @staticmethod
-    def get_map(mapName):
-        for map in GameManager.maps:
-            if map.name == mapName:
-                return map
-        return None
-    """
     
-    regionsToRewards = { #Dictionnary of all the rewards we can get in a specific region
-        "TerreDuFeu" : ("cactus","arbre mort","sable rare","scorpion")
-    }
+    
 
     @staticmethod 
     async def exploration(region): #Give a random reward to someone that explore a region.

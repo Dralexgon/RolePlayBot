@@ -1,17 +1,19 @@
+from Region import Region
+
 class Character:
 
     def __init__(self, 
-                    ownerId: int,
-                    surname: str,
-                    gender: str,
-                    race: str,
-                    combatClass: str,
-                    magicClass: str,
-                    firstname: str = "default",
-                    lastname: str = "default",
-                    age: int = 25,
-                    height: int = 175,
-                    weight: int = 70):
+                ownerId: int,
+                surname: str,
+                gender: str,
+                race: str,
+                combatClass: str,
+                magicClass: str,
+                firstname: str = "default",
+                lastname: str = "default",
+                age: int = 25,
+                height: int = 175,
+                weight: int = 70):
         
         #technical
         self.ownerId = ownerId
@@ -57,6 +59,7 @@ class Character:
         self.spells = []
 
         #temporary information
+        self.region = Region.default
         self.health = 100
         self.mana = 100
         self.maxHealth = 100

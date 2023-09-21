@@ -1,5 +1,4 @@
-#This is a bot discord created by Dralexgon and Mysthieu.
-#The purpose of this bot is to manage a roleplay server.
+#This is the part of the program that interact with discord.
 
 import discord
 from discord.ext import commands
@@ -22,9 +21,27 @@ async def on_ready():
 #Always possibles commands :
 
 
-@bot.command()
+
+@bot.command(name="ping", help="This is use to check if the bot is online and working.")
 async def ping(ctx):
-    await ctx.send('pong')
+    await ctx.send("pong")
+
+
+
+@client.command(name="help", help="Shows this message.")
+async def help(ctx):
+    embed = discord.Embed(
+        title = "Help",
+        colour = discord.Colour.blue()
+    )
+    commandListinversed = []
+    for command in client.commands:
+        commandListinversed.append(command)
+    for command in commandListinversed:
+        embed.add_field(name=command.name, value=command.help, inline=False)
+    await ctx.send(ctx.author.mention, embed=embed)
+
+
 
 @bot.command(alias=["createcharacter","newcharacter","newchar","createchar"])
 async def create_character(ctx: commands.Context):
@@ -77,6 +94,9 @@ async def create_character(ctx: commands.Context):
 
     await ctx.send(Translate.get("CHARACTER_CREATED"))
     await ctx.send(GameManager.get_character_by_owner_id(ctx.author.id).get_profile_card())
+
+
+
 
 @bot.command(alias=["profile", "profilecard", "characterprofile", "showcharacter", "showcharacterprofile"])
 async def show_profile_card(ctx: commands.Context):
