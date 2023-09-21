@@ -9,9 +9,9 @@ class Map:
         return self.name + " : " + self.description
     
     def get_image(self):
-        image = "```"
+        image = ""#"```"
         for row in self.matrix:
             for char in row:
                 image += char
             image += "\n"
-        return image + "```"
+        return image #+ "```"

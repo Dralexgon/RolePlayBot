@@ -6,7 +6,9 @@ from random import randint
 from Character import Character
 from Map import Map
 
-class GameMaster:
+class GameManager:
+
+    games = []
 
     characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
@@ -33,21 +35,26 @@ class GameMaster:
 
     @staticmethod
     def add_character(character):
-        GameMaster.characters.append(character)
+        GameManager.characters.append(character)
 
     @staticmethod
     def get_character_by_owner_id(id):
-        for character in GameMaster.characters:
+        for character in GameManager.characters:
             if character.ownerId == id:
                 return character
         return None
 
     @staticmethod
     def get_map(mapName):
-        for map in GameMaster.maps:
+        for map in GameManager.maps:
             if map.name == mapName:
                 return map
         return None
+
+    @staticmethod
+    def new_game(gameMasterID):
+        GameManager.games.append(Game(gameMasterID))
+        return GameManager.games[-1]
 
 
     #TODO finish that later (and understand what it is)
@@ -58,7 +65,7 @@ class GameMaster:
 
     @staticmethod 
     async def exploration(region): #Give a random reward to someone that explore a region.
-        for i in GameMaster.regionsToRewards.keys():
+        for i in GameManager.regionsToRewards.keys():
             if i == region:
-                reward = GameMaster.regionsToRewards[region][randint(0,len(GameMaster.regionsToRewards[region])-1)]
+                reward = GameManager.regionsToRewards[region][randint(0,len(GameManager.regionsToRewards[region])-1)]
         return reward
