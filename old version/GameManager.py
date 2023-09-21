@@ -10,10 +10,8 @@ class GameManager:
 
     games = []
 
-    #will be empty, it's just for testing purpose
     characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
-    """
     maps = [
         Map("Arena", "test", [
                     ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"],
@@ -34,7 +32,6 @@ class GameManager:
                     ["🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩","🟩"]
                 ]),
     ]
-    """
 
     @staticmethod
     def add_character(character):
@@ -47,14 +44,20 @@ class GameManager:
                 return character
         return None
 
-    """
     @staticmethod
     def get_map(mapName):
         for map in GameManager.maps:
             if map.name == mapName:
                 return map
         return None
-    """
+
+    @staticmethod
+    def new_game(gameMasterID):
+        GameManager.games.append(Game(gameMasterID))
+        return GameManager.games[-1]
+
+
+    #TODO finish that later (and understand what it is)
     
     regionsToRewards = { #Dictionnary of all the rewards we can get in a specific region
         "TerreDuFeu" : ("cactus","arbre mort","sable rare","scorpion")

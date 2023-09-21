@@ -18,7 +18,6 @@ class Translate:
         "CHARACTER_CREATED": ("Your character has been created !", "Votre personnage a été créé !"),
         "ALREADY_IN_GAME": ("You already have a game in progress ! Use the command `!end_game` to end it.", "Vous avez déjà une partie en cours ! Utilisez la commande `!end_game` pour la terminer."),
         "GAME_CREATED": ("Your game has been created !", "Votre partie a été créée !"),
-        "UNKNOW_HISTORY": ("History unknow", "Histoire inconnue"),
     }
 
     @staticmethod

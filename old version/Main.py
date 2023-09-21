@@ -86,6 +86,30 @@ async def show_profile_card(ctx: commands.Context):
     else:
         await ctx.send(character.get_profile_card())
 
+#Gamemaster commands :
+
+
+@bot.command(aliases=["startgame", "start"])
+async def start_game(ctx: commands.Context):
+    for game in GameManager.games:
+        if game.gameMasterID == ctx.author.id:
+            await ctx.send(Translate.get("ALREADY_IN_GAME"))
+            return
+    
+    GameManager.new_game(ctx.author.id)
+
+    await ctx.send(Translate.get("GAME_CREATED"))
+
+
+@bot.command(aliases=["newmap", "createmap", "addmap", "map"])
+async def change_map(ctx: commands.Context, mapName: str):
+    map = GameManager.get_map(mapName)
+    message: discord.Message = await ctx.send(map.get_image())
+
+    #for player in characterNames:
+
+    #message.edit(content=map.get_image())
+
 
 #note, if you want to run this code, you need to create a file called token.txt one directory before the code and put your token in it.
 token = open('../token.txt', 'r').readlines()[0]

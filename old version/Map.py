@@ -1,6 +1,3 @@
-"""
-TODO later, not a priority
-
 class Map:
     
     def __init__(self, name, description, matrix):
@@ -18,4 +15,3 @@ class Map:
                 image += char
             image += "\n"
         return image #+ "```"
-"""
