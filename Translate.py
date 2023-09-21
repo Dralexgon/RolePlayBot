@@ -26,6 +26,9 @@ class Translate:
         "item": {
             "cactus": ("Cactus", "Cactus")
         },
+        "error": {
+            "no_character": ("You don't have a character yet ! Use !create_character to create one !", "Tu n'as pas de personnage pour l'instant ! Utilise !create_character pour en créer un !")
+        }
     }
 
     @staticmethod

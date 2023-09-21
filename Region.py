@@ -5,10 +5,22 @@ from Translate import Translate
 class Region:
 
     regions = [
-        Translate.get("country.fire"),
-        Translate.get("country.water"),
-        Translate.get("country.earth"),
-        Translate.get("country.air"),
+        Region(
+            Translate.get("country.fire"), [
+                Item.get_by_name("cactus"),
+            ]),
+        Region(
+            Translate.get("country.water"), [
+
+            ]),
+        Region(
+            Translate.get("country.earth"), [
+
+            ]),
+        Region(
+            Translate.get("country.air"), [
+
+            ]),
     ]
 
     default = regions[0]

@@ -23,10 +23,3 @@ class GameManager:
             if character.ownerId == id:
                 return character
         return None
-    
-    
-
-    @staticmethod 
-    async def exploration(region): #Give a random reward to someone that explore a region.
-        reward = GameManager.regionsToRewards[region][randint(0,len(GameManager.regionsToRewards[region])-1)]
-        return reward

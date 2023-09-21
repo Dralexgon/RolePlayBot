@@ -29,7 +29,7 @@ class Character:
         self.age = age
         self.height = height
         self.weight = weight
-        self.history = Translate.get("UNKNOW_HISTORY")
+        self.history = Translate.get("character_creation.unknow_history")
 
         #classes
         self.combatClass = combatClass

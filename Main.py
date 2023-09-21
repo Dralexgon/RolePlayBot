@@ -28,7 +28,9 @@ async def ping(ctx):
 
 
 
-@client.command(name="help", help="Shows this message.")
+@client.command(
+    name="help",
+    help="Shows this message.")
 async def help(ctx):
     embed = discord.Embed(
         title = "Help",
@@ -43,12 +45,15 @@ async def help(ctx):
 
 
 
-@bot.command(alias=["createcharacter","newcharacter","newchar","createchar"])
+@bot.command(
+    name="create_character",
+    help="Start a conversation to create your character tep by step",
+    alias=["createcharacter","newcharacter","newchar","createchar"])
 async def create_character(ctx: commands.Context):
     #the user will respond by typing message in the same channel or by reacting to the message
 
 
-    await ctx.send(Translate.get("QUESTION_NAME"))
+    await ctx.send(Translate.get("character_creation.question.name"))
     #check if the name is already taken
     exist = True
     while exist:
@@ -57,15 +62,15 @@ async def create_character(ctx: commands.Context):
         for character in GameManager.characters:
             if character.name == name:
                 exist = True
-                await ctx.send(Translate.get("ALREADY_EXIST"))
+                await ctx.send(Translate.get("character_creation.already_exist"))
                 break
 
 
-    await ctx.send(Translate.get("QUESTION_GENRE"))
+    await ctx.send(Translate.get("character_creation.question.genre"))
     gender = (await bot.wait_for('message', check=lambda message: message.author == ctx.author and message.channel == ctx.channel)).content
 
 
-    question = await ctx.send(Translate.get("QUESTION_RACE"))
+    question = await ctx.send(Translate.get("character_creation.question.race"))
     for emojiName in [  get_custom_emoji("Human"), 
                         get_custom_emoji("DemonBorn"),
                         get_custom_emoji("Sylphe"),
@@ -76,14 +81,14 @@ async def create_character(ctx: commands.Context):
     race = reaction.emoji.name
 
 
-    question = await ctx.send(Translate.get("QUESTION_COMBAT_CLASS"))
+    question = await ctx.send(Translate.get("character_creation.question.combat_class"))
     for emojiName in ["Garde_sentinelle", "Guerrier_polyvalent", "Tireur_d_elite", "Assassin_furtif", "Mage_de_soutien"]:
         await question.add_reaction(discord.utils.get(bot.emojis, name=emojiName))
     reaction, user = await bot.wait_for('reaction_add', check=lambda reaction, user: user == ctx.author and reaction.message == question)
     combatClass = reaction.emoji.name
 
 
-    question = await ctx.send(Translate.get("QUESTION_MAGIC_CLASS"))
+    question = await ctx.send(Translate.get("character_creation.question.magic_class"))
     for emojiName in ["🔥", "💧", "🪨", "💨"]:
         await question.add_reaction(emojiName)
     reaction, user = await bot.wait_for('reaction_add', check=lambda reaction, user: user == ctx.author and reaction.message == question)
@@ -92,17 +97,33 @@ async def create_character(ctx: commands.Context):
 
     GameManager.add_character(Character(ctx.author.id, name, gender, race, combatClass, magicClass))
 
-    await ctx.send(Translate.get("CHARACTER_CREATED"))
+    await ctx.send(Translate.get("character_creation.created"))
     await ctx.send(GameManager.get_character_by_owner_id(ctx.author.id).get_profile_card())
 
 
 
 
-@bot.command(alias=["profile", "profilecard", "characterprofile", "showcharacter", "showcharacterprofile"])
+@bot.command(
+    name="show_profile_card",
+    help="Shows the profile card of your character",
+    alias=["profile", "profilecard", "characterprofile", "showcharacter", "showcharacterprofile"])
 async def show_profile_card(ctx: commands.Context):
     character = GameManager.get_character_by_owner_id(ctx.author.id)
     if character == None:
-        await ctx.send("You do not have a character yet.")
+        await ctx.send("You don't have a character yet.")
+    else:
+        await ctx.send(character.get_profile_card())
+
+
+
+@bot.command(
+    name="exploration",
+    help="Your character explore arround and gain rewards specific of your current region.",
+    alias=["explo"])
+async def exploration(ctx: commands.Context):
+    character = GameManager.get_character_by_owner_id(ctx.author.id)
+    if character == None:
+        await ctx.send("You don't have a character yet.")
     else:
         await ctx.send(character.get_profile_card())
 
