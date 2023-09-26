@@ -5,9 +5,9 @@ from Item import Item
 
 class Region:
 
-    def __init__(self, name: str, rewards: list[Item]):
+    def __init__(self, name: str, loots: list[Item]):
         self.name = name
-        self.rewards = rewards
+        self.loots = loots
 
     @staticmethod
     def get_by_name(name: str):
@@ -17,4 +17,4 @@ class Region:
         return None
 
     def get_random_reward(self):
-        return self.rewards[randint(0, len(self.rewards) - 1)]
+        return self.loots[randint(0, len(self.loots) - 1)]

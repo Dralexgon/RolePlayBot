@@ -122,17 +122,22 @@ async def show_profile_card(ctx: commands.Context):
 
 @bot.command(
     name="exploration",
-    help="Your character explore arround and gain rewards specific of your current region.",
+    help="Your character explore arround and gain loots specific of your current region.",
     aliases=["explo"])
 async def exploration(ctx: commands.Context):
     character = GameManager.get_character_by_owner_id(ctx.author.id)
+
     if character == None:
-        await ctx.send("You don't have a character yet.")
+        await ctx.send(Translate.get("error.no_character"))
+        return
+    if len(character.region.loots) == 0:
+        await ctx.send(Translate.get("error.no_loot_region"))
         return
     
     item: Item = character.region.get_random_reward()
     character.inventory.append(item)
-    await ctx.send(Translate.get("item.receive" + "1x " + Translate.get(item.name) + " !")) 
+    character.save_as_pickle()
+    await ctx.send(Translate.get("item.receive") + "1x " + Translate.get(item.name) + " !")
 
 
 @bot.command(

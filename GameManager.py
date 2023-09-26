@@ -1,6 +1,8 @@
 #It's the center of the program with only gameplay aspects.
 #Here, there is no direct interaction with discord.
 
+import os
+
 from Character import Character
 from Region import Region
 from Item import Item
@@ -9,7 +11,7 @@ from Translate import Translate
 
 class GameManager:
 
-    characters = [Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
+    characters = []#[Character(645005137714348041, "Predatoria", "Femelle", "DemonBorn", "Assassin_furtif", "🔥")]
 
     def __init__(self):
         #will be empty, it's just for testing purpose
@@ -34,6 +36,10 @@ class GameManager:
 
                 ]),
         ]
+        #load all characters from files
+        for file in os.listdir("characters"):
+            character = Character.load_from_pickle(file.split(".")[0])
+            self.characters.append(character)
 
     def get_item_by_name(self, name: str):
         for item in self.items:

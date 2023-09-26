@@ -25,10 +25,11 @@ class Translate:
         },
         "item": {
             "receive": ("You received : ", "Tu as reçu : "),
-            "cactus": ("Cactus", "Cactus")
+            "cactus": ("Cactus", "Cactus"),
         },
         "error": {
-            "no_character": ("You don't have a character yet ! Use !create_character to create one !", "Tu n'as pas de personnage pour l'instant ! Utilise !create_character pour en créer un !")
+            "no_character": ("You don't have a character yet ! Use !create_character to create one !", "Tu n'as pas de personnage pour l'instant ! Utilise !create_character pour en créer un !"),
+            "no_loot_region": ("This region doesn't have any loot.", "Cette région n'a pas de butin."),
         }
     }
 

@@ -1,3 +1,5 @@
+import pickle
+
 from Region import Region
 from Translate import Translate
 
@@ -17,7 +19,9 @@ class Character:
                 weight: int = 70):
         
         #technical
+        self.version = 1
         self.ownerId = ownerId
+        self.testnewversion = "test"
 
         #lore
         self.surname = surname
@@ -65,6 +69,8 @@ class Character:
         self.mana = 100
         self.maxHealth = 100
         self.maxMana = 100
+
+        self.save_as_pickle()
     
     def get_profile_card(self) -> str:
         card = "# Character profile card :\n"
@@ -115,3 +121,12 @@ class Character:
         card += "- Mana: " + str(self.mana) + "/" + str(self.maxMana) + "\n"
 
         return card
+    
+    def save_as_pickle(self):
+        with open("characters/" + str(self.ownerId) + ".pickle", "wb") as file:
+            pickle.dump(self, file)
+    
+    @staticmethod
+    def load_from_pickle(ownerId: int):
+        with open("characters/" + str(ownerId) + ".pickle", "rb") as file:
+            return pickle.load(file)
